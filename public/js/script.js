@@ -233,7 +233,9 @@ function showAuthenticatedUI(user) {
     if (loginBtn) loginBtn.style.display = 'none';
     if (userProfile) {
         userProfile.style.display = 'flex';
-        userName.textContent = user.displayName || user.email;
+        if (userName) {
+            userName.textContent = user.displayName || user.email;
+        }
     }
     
     if (addStoryBtn) {
@@ -518,17 +520,22 @@ setInterval(rotateQuotes, 5000);
 
 // 메뉴 클릭 이벤트 핸들러
 function handleMenuClick(event) {
-    event.preventDefault();
-    const targetId = event.currentTarget.getAttribute('href').substring(1);
-    const targetSection = document.getElementById(targetId);
+    const href = event.currentTarget.getAttribute('href');
     
-    if (targetSection) {
-        // 스크롤 애니메이션
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+    // 사이드바가 열려있다면 닫기
+    if (sidebar && sidebar.classList.contains('active')) {
+        closeSidebar();
+    }
+
+    // 내부 링크(#으로 시작)만 preventDefault
+    if (href.startsWith('#')) {
+        event.preventDefault();
+        const targetId = href.substring(1);
+        const targetSection = document.getElementById(targetId);
         
-        // 사이드바가 열려있다면 닫기
-        if (sidebar.classList.contains('active')) {
-            closeSidebar();
+        if (targetSection) {
+            // 스크롤 애니메이션
+            targetSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
 }
@@ -569,15 +576,17 @@ function resetSidebarTimer() {
 }
 
 // 이벤트 리스너 등록
-hamburgerBtn.addEventListener('click', openSidebar);
-closeSidebarBtn.addEventListener('click', closeSidebar);
-overlay.addEventListener('click', closeSidebar);
+if (hamburgerBtn) hamburgerBtn.addEventListener('click', openSidebar);
+if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeSidebar);
+if (overlay) overlay.addEventListener('click', closeSidebar);
 
 // 사이드바 내부 움직임 감지
-sidebar.addEventListener('mousemove', resetSidebarTimer);
-sidebar.addEventListener('touchstart', resetSidebarTimer);
-
-// 링크 클릭시 사이드바 닫기
-sidebar.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeSidebar);
-}); 
+if (sidebar) {
+    sidebar.addEventListener('mousemove', resetSidebarTimer);
+    sidebar.addEventListener('touchstart', resetSidebarTimer);
+    
+    // 사이드바 내부 클릭 이벤트 버블링 방지
+    sidebar.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+} 
