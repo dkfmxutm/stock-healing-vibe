@@ -6,35 +6,81 @@
     <title>Stock Healing - 주식 실패 경험 공유 커뮤니티</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
         <nav>
+            <button id="hamburger-btn" class="hamburger-btn" aria-label="메뉴">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="logo">Stock Healing</div>
-            <ul class="nav-links">
-                <li><a href="#home">홈</a></li>
-                <li><a href="#stories">실패담</a></li>
+            <!-- 데스크톱용 가로 메뉴 -->
+            <ul class="nav-links desktop-menu">
+                <li>
+                    <a href="#home" title="홈">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="text">홈</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#stories" title="실패담">
+                        <span class="icon"><i class="fas fa-book-open"></i></span>
+                        <span class="text">실패담</span>
+                    </a>
+                </li>
             </ul>
+            <!-- 모바일용 사이드바 메뉴 -->
+            <div id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">Stock Healing</div>
+                    <button id="close-sidebar" class="close-sidebar" aria-label="메뉴 닫기">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#home" title="홈">
+                            <span class="icon"><i class="fas fa-home"></i></span>
+                            <span class="text">홈</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#stories" title="실패담">
+                            <span class="icon"><i class="fas fa-book-open"></i></span>
+                            <span class="text">실패담</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <div class="auth-buttons">
-                <a href="login.html" class="login-btn">로그인</a>
+                <a href="login.html" class="login-btn" title="로그인">
+                    <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="text">로그인</span>
+                </a>
                 <span id="userProfile" class="user-profile" style="display: none;">
-                    <span id="userName"></span>
-                    <button id="logoutBtn" class="logout-btn">로그아웃</button>
+                    <button id="logoutBtn" class="logout-btn" title="로그아웃">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="text">로그아웃</span>
+                    </button>
                 </span>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="home" class="hero">
+        <section id="home" class="section">
+            <div class="section-header">
+                <h2>주식 대가의 명언</h2>
+            </div>
             <div class="quote-container">
                 <div id="quoteText" class="quote-text quote-fade"></div>
                 <div id="quoteAuthor" class="quote-author quote-fade"></div>
             </div>
         </section>
 
-        <section id="stories" class="stories-section">
+        <section id="stories" class="section">
             <div class="section-header">
                 <h2>실패 경험 공유</h2>
                 <button id="add-story-btn" class="add-story-btn">새 글 작성하기</button>

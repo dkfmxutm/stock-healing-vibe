@@ -40,6 +40,17 @@ const sendMessageBtn = document.getElementById('send-message');
 const chatMessages = document.querySelector('.chat-messages');
 const ctaButton = document.querySelector('.cta-button');
 
+// 사이드바 관련 요소들
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const sidebar = document.getElementById('sidebar');
+const closeSidebarBtn = document.getElementById('close-sidebar');
+let sidebarTimeout;
+
+// 오버레이 요소 생성
+const overlay = document.createElement('div');
+overlay.className = 'sidebar-overlay';
+document.body.appendChild(overlay);
+
 // Check if current page is login or signup page
 const isAuthPage = window.location.pathname.includes('login.html') || 
                   window.location.pathname.includes('signup.html');
@@ -76,6 +87,7 @@ onAuthStateChanged(auth, (user) => {
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     loadStories();
+    addMenuEventListeners();
 });
 
 function setupEventListeners() {
@@ -502,4 +514,70 @@ function rotateQuotes() {
 // 초기 명언 표시
 showQuote(currentQuoteIndex);
 // 5초마다 명언 변경
-setInterval(rotateQuotes, 5000); 
+setInterval(rotateQuotes, 5000);
+
+// 메뉴 클릭 이벤트 핸들러
+function handleMenuClick(event) {
+    event.preventDefault();
+    const targetId = event.currentTarget.getAttribute('href').substring(1);
+    const targetSection = document.getElementById(targetId);
+    
+    if (targetSection) {
+        // 스크롤 애니메이션
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // 사이드바가 열려있다면 닫기
+        if (sidebar.classList.contains('active')) {
+            closeSidebar();
+        }
+    }
+}
+
+// 모든 메뉴 링크에 이벤트 리스너 추가
+function addMenuEventListeners() {
+    // 데스크톱 메뉴 링크
+    document.querySelectorAll('.desktop-menu a').forEach(link => {
+        link.addEventListener('click', handleMenuClick);
+    });
+
+    // 사이드바 메뉴 링크
+    document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+        link.addEventListener('click', handleMenuClick);
+    });
+}
+
+// 사이드바 열기
+function openSidebar() {
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    resetSidebarTimer();
+}
+
+// 사이드바 닫기
+function closeSidebar() {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    clearTimeout(sidebarTimeout);
+}
+
+// 사이드바 타이머 리셋
+function resetSidebarTimer() {
+    clearTimeout(sidebarTimeout);
+    sidebarTimeout = setTimeout(() => {
+        closeSidebar();
+    }, 3000);
+}
+
+// 이벤트 리스너 등록
+hamburgerBtn.addEventListener('click', openSidebar);
+closeSidebarBtn.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+// 사이드바 내부 움직임 감지
+sidebar.addEventListener('mousemove', resetSidebarTimer);
+sidebar.addEventListener('touchstart', resetSidebarTimer);
+
+// 링크 클릭시 사이드바 닫기
+sidebar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeSidebar);
+}); 
