@@ -48,6 +48,7 @@ let leftPressed = false;
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 document.addEventListener('mousemove', mouseMoveHandler);
+canvas.addEventListener('touchstart', touchMoveHandler, { passive: false });
 canvas.addEventListener('touchmove', touchMoveHandler, { passive: false });
 
 function keyDownHandler(e) {
@@ -67,17 +68,31 @@ function keyUpHandler(e) {
 }
 
 function mouseMoveHandler(e) {
-    const relativeX = e.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
-        paddle.x = relativeX - paddle.width / 2;
+    const rect = canvas.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const paddleCenter = paddle.width / 2;
+    
+    if (relativeX > paddleCenter && relativeX < canvas.width - paddleCenter) {
+        paddle.x = relativeX - paddleCenter;
     }
 }
 
 function touchMoveHandler(e) {
     e.preventDefault();
-    const relativeX = e.touches[0].clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
-        paddle.x = relativeX - paddle.width / 2;
+    const rect = canvas.getBoundingClientRect();
+    const relativeX = e.touches[0].clientX - rect.left;
+    const paddleCenter = paddle.width / 2;
+    
+    // 화면 크기에 맞게 위치 조정
+    const scaledX = relativeX * (canvas.width / rect.width);
+    
+    // 패들이 화면 밖으로 나가지 않도록 제한
+    if (scaledX > paddleCenter && scaledX < canvas.width - paddleCenter) {
+        paddle.x = scaledX - paddleCenter;
+    } else if (scaledX <= paddleCenter) {
+        paddle.x = 0;
+    } else if (scaledX >= canvas.width - paddleCenter) {
+        paddle.x = canvas.width - paddle.width;
     }
 }
 
