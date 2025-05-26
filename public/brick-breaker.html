@@ -1,1 +1,51 @@
- 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Healing - 벽돌 깨기</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/brick-breaker.css">
+</head>
+<body>
+    <header>
+        <a href="game.html" class="home-btn">
+            <i class="fas fa-gamepad"></i>
+            <span>게임 메뉴</span>
+        </a>
+        <div class="score-display">
+            <div class="score">점수: <span id="score">0</span></div>
+            <div class="high-score">최고 점수: <span id="highScore">0</span></div>
+        </div>
+    </header>
+
+    <main>
+        <div class="game-container">
+            <div id="startScreen" class="start-screen">
+                <h2>벽돌 깨기</h2>
+                <p>스페이스바를 누르거나 화면을 터치하여 시작하세요!</p>
+                <div class="controls-info">
+                    <p><i class="fas fa-arrow-left"></i> <i class="fas fa-arrow-right"></i> 키보드 또는 터치로 이동</p>
+                    <p><i class="fas fa-redo"></i> R키를 눌러 재시작</p>
+                </div>
+                <button id="startButton" class="start-btn">게임 시작</button>
+            </div>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <div id="gameOverScreen" class="game-over-screen hidden">
+                <h2>게임 오버!</h2>
+                <div class="final-score">최종 점수: <span id="finalScore">0</span></div>
+                <div class="final-high-score">최고 점수: <span id="finalHighScore">0</span></div>
+                <button id="restartButton" class="restart-btn">
+                    <i class="fas fa-redo"></i> 다시 시작
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/brick-breaker.js"></script>
+</body>
+</html> 

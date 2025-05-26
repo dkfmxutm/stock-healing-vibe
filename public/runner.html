@@ -118,29 +118,33 @@
                 </div>
 
                 <!-- 게임 오버 화면 -->
-                <div id="gameOver" class="hidden">
-                    <div class="game-over-content">
+                <div id="gameOverScreen" class="game-over-screen hidden">
+                    <div class="game-over-header">
                         <h2>게임 오버!</h2>
-                        <div class="score-display">
+                    </div>
+                    <div class="game-over-scores">
+                        <div class="score-row">
                             <div class="score-item">
-                                <span class="label">최종 점수</span>
+                                <i class="fas fa-star"></i>
+                                <span>점수</span>
                                 <span id="finalScore">0</span>
                             </div>
                             <div class="score-item">
-                                <span class="label">최고 기록</span>
+                                <i class="fas fa-trophy"></i>
+                                <span>최고 기록</span>
                                 <span id="finalHighScore">0</span>
                             </div>
                         </div>
-                        <div class="game-over-buttons">
-                            <button id="restartBtn">
-                                <i class="fas fa-redo"></i>
-                                다시 시작
-                            </button>
-                            <button id="changeCharacterBtn">
-                                <i class="fas fa-exchange-alt"></i>
-                                캐릭터 변경
-                            </button>
-                        </div>
+                    </div>
+                    <div class="game-over-buttons">
+                        <button id="restartBtn">
+                            <i class="fas fa-redo"></i>
+                            다시 시작
+                        </button>
+                        <button id="changeCharacterBtn">
+                            <i class="fas fa-exchange-alt"></i>
+                            캐릭터 변경
+                        </button>
                     </div>
                 </div>
 
